@@ -1,0 +1,19 @@
+.candidates {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.candidates > button {
+  margin-top: 40px;
+  width: 150px;
+  align-self: flex-end;
+  background: teal;
+  border-radius: 2px;
+  padding: 7px;
+  border: 1px solid;
+  border-color: teal;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
