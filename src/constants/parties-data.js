@@ -1,4 +1,4 @@
-var data = [
+var partiesData = [
     {
         name: "AAP",
         symbol: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/AAP_symbol.svg/2048px-AAP_symbol.svg.png",
@@ -26,4 +26,4 @@ var data = [
     }
 ];
 
-export default data;
+export default partiesData;

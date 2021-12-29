@@ -1,10 +1,10 @@
 import React from 'react';
 import './Candidate.css';
 
-export default function Candidate({ party }) {
+export default function Candidate({ party, vote, setVote }) {
     return (
         <div className='candidate'>
-            <div className='candidate-item' onClick={() => window.location.href = party.manifesto}>
+            <div className='candidate-item' onClick={() => window.open(party.manifesto, "_blank")}>
                 <p>{party.name}</p>
                 {
                     party.symbol
@@ -12,7 +12,9 @@ export default function Candidate({ party }) {
                         : <div />
                 }
             </div>
-            <button>&nbsp;</button>
+            <button
+                onClick={() => setVote(party.name)}
+                style={{ backgroundColor: (vote === party.name) ? 'green' : 'white' }}>&nbsp;</button>
         </div>
     );
 }
