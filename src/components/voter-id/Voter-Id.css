@@ -1,11 +1,11 @@
 .voterId {
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
-.voterId > form {
+.voterId-form {
     display: flex;
     flex-direction: column;
     width: 250px;
@@ -14,31 +14,35 @@
     align-items: center;
 }
 
-.voterId > form > h4 {
-    margin-top: 10px;
-    padding: 7px;
-    text-align: center;
-    color: teal;
+.voterId-form > h4 {
+  margin-top: 10px;
+  padding: 7px;
+  text-align: center;
+  color: teal;
 }
 
-.voterId > form > input {
-    margin-top: 10px;
-    border-radius: 2px;
-    padding: 7px;
-    border: 1px solid;
-    border-color: black;
-    text-align: center;
+.voterId-form > input {
+  margin-top: 10px;
+  border-radius: 2px;
+  padding: 7px;
+  border: 1px solid;
+  border-color: black;
+  text-align: center;
 }
 
-.voterId > form > button {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background: teal;
-    border-radius: 2px;
-    padding: 7px;
-    border: 1px solid;
-    border-color: teal;
-    color: white;
-    text-align: center;
-    cursor: pointer;
+.voterId-form > button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background: teal;
+  border-radius: 2px;
+  padding: 7px;
+  border: 1px solid;
+  border-color: teal;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+
+.voterId-form > button :hover {
+  background-color: wheat;
 }
