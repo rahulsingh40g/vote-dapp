@@ -7,10 +7,9 @@ export default function Candidate({ party, vote, setVote }) {
     const [audio] = useState(new Audio("https://www.soundjay.com/buttons/sounds/beep-02.mp3"));
 
     const handleClick = () => {
-        setVote(party.name);
+        setVote(party.id);
         audio.play();
     }
-
 
     return (
         <div className='candidate'>
@@ -24,7 +23,7 @@ export default function Candidate({ party, vote, setVote }) {
             </div>
             <button
                 onClick={handleClick}
-                style={{ backgroundColor: (vote === party.name) ? 'green' : 'white' }}>&nbsp;</button>
+                style={{ backgroundColor: (vote === party.id) ? 'green' : 'white' }}>&nbsp;</button>
         </div>
     );
 }

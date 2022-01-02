@@ -4,14 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Candidates from '../candidates/Candidates.js';
 import { db } from '../../firebase';
+import contract_address from '../../constants/contract-data.js';
+import { ethers } from 'ethers';
+import Voting from '../../artifacts/contracts/Voting.sol/Voting.json';
 
-export default function VoterId() {
+export default function VoterId({ parties }) {
 
     const navigate = useNavigate();
     const [vid, setVid] = useState("");
     const [phone, setPhone] = useState("");
     const [voters, setVoters] = useState([]);
-    const [fetchingData, setFetchingData] = useState(true);
 
     useEffect(() => {
         db
@@ -19,8 +21,6 @@ export default function VoterId() {
             .onSnapshot(snapshot => (
                 setVoters(snapshot.docs.map(doc => doc.data()))
             ));
-
-        setFetchingData(false);
     }, []);
 
     const validateVid = () => {
@@ -38,6 +38,25 @@ export default function VoterId() {
         }
     }
 
+    async function canVote(e) {
+        e.preventDefault();
+        if (typeof window.ethereum !== 'undefined') {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const contract = new ethers.Contract(contract_address, Voting.abi, provider)
+            try {
+                const data = await contract.canVote(vid);
+                if (data) {
+                    validateVid();
+                }
+                else {
+                    navigate("/error/5");
+                }
+            } catch (err) {
+                console.log("canVote Error: ", err)
+            }
+        }
+    }
+
     return (
         <>
             {
@@ -46,10 +65,10 @@ export default function VoterId() {
                         <form className='voterId-form'>
                             <h4>Enter Your Voter ID</h4>
                             <input type="text" onChange={e => setVid(e.target.value)} />
-                            <button onClick={validateVid} >Proceed</button>
+                            <button onClick={canVote} >Proceed</button>
                         </form>
                     </div>
-                    : <Candidates vid={vid} phone={phone} />
+                    : <Candidates vid={vid} phone={phone} parties={parties}/>
             }
         </>
     );

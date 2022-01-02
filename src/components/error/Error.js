@@ -9,7 +9,9 @@ export default function Error() {
     const errorMsgs = [
         "Invalid Voter ID",
         "Error Confirming OTP, try fresh",
-        "Failed to confirm OTP, try fresh"
+        "Failed to confirm OTP, try fresh",
+        "Passcode can't be less than 6 characters, try fresh",
+        "You have already voted!"
     ];
 
     return (
