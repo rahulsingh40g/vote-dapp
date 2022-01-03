@@ -43,37 +43,41 @@ export default function Candidates({ vid, phone, parties }) {
     }
 
     const onSignInSubmit = () => {
-     /*   configureCaptcha();
+        /*    configureCaptcha();
+    
+            const phoneNumber = "+91" + phone;
+    
+            const appVerifier = window.recaptchaVerifier;
+    
+            firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+                .then((confirmationResult) => {
+                    window.confirmationResult = confirmationResult;
+                    console.log("OPT SENT");
+    
+                    let code = prompt("Enter OTP sent to your registered mobile number ***** **" + phone.slice(phone.length - 3));
+                    console.log("Code from Prompt: ", code);
+                    if (code != null) {
+                        window.confirmationResult.confirm(code).then((res) => {*/
+        submitVote().then((_) => {
+            console.log("Complete Success");
+            setSuccessFlag(true);
+        }).catch((error) => {
+            console.log("Error Submitting Vote: ", error);
+            navigate("/error/6", { replace: true });
+        });
+        /*  })
+              .catch((error) => {
+                  console.log("Error Confirming OTP");
+                  navigate("/error/2", { replace: true });
+              });
+      }
+      else {
+          navigate("/error/3", { replace: true });
+      }
 
-        const phoneNumber = "+91" + phone;
-
-        const appVerifier = window.recaptchaVerifier;
-
-        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-            .then((confirmationResult) => {
-                window.confirmationResult = confirmationResult;
-                console.log("OPT SENT");
-
-                let code = prompt("Enter OTP sent to your registered mobile number ***** **" + phone.slice(phone.length - 3));
-                console.log("Code from Prompt: ", code);
-                if (code != null) {
-                    window.confirmationResult.confirm(code).then((res) => {*/
-                        submitVote();
-                        console.log("Complete Success");
-                        setSuccessFlag(true);
-              /*      })
-                        .catch((error) => {
-                            console.log("Error Confirming OTP");
-                            navigate("/error/2", { replace: true });
-                        });
-                }
-                else {
-                    navigate("/error/3", { replace: true });
-                }
-
-            }).catch((error) => {
-                console.log("SMS not SENT");
-            });*/
+  }).catch((error) => {
+      console.log("SMS not SENT");
+  });*/
     }
 
     async function requestAccount() {

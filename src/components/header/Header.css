@@ -1,10 +1,33 @@
 .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    text-align: center;
-    background-color: teal;
-    padding: 12px;
-    color: white;
-    width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  text-align: center;
+  background-color: teal;
+  padding: 12px;
+  color: white;
+  width: 100%;
+}
+
+.header-head {
+  display: flex;
+  flex-direction: row;
+}
+
+.header-head > h3 {
+  flex: 10;
+}
+
+.header-head > button {
+  flex: 1;
+  font-size: 18px;
+  color: white;
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.header-head > button:hover {
+  color: yellow;
 }

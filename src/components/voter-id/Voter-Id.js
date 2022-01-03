@@ -45,6 +45,7 @@ export default function VoterId({ parties }) {
             const contract = new ethers.Contract(contract_address, Voting.abi, provider)
             try {
                 const data = await contract.canVote(vid);
+                console.log("canVote Data: ", data);
                 if (data) {
                     validateVid();
                 }
@@ -68,7 +69,7 @@ export default function VoterId({ parties }) {
                             <button onClick={canVote} >Proceed</button>
                         </form>
                     </div>
-                    : <Candidates vid={vid} phone={phone} parties={parties}/>
+                    : <Candidates vid={vid} phone={phone} parties={parties} />
             }
         </>
     );
