@@ -17,8 +17,6 @@ export default function Candidates({ vid, phone, parties }) {
 
     const [successFlag, setSuccessFlag] = useState(false);
 
-    const [passcode, setPasscode] = useState("");
-
     const configureCaptcha = () => {
         window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
             'size': 'invisible',
@@ -34,15 +32,14 @@ export default function Candidates({ vid, phone, parties }) {
         const _passcode = prompt("Enter a secret Passcode that you will use to track your vote(6 characters)");
 
         if (_passcode != null && _passcode.length > 5) {
-            setPasscode(_passcode);
-            onSignInSubmit();
+            onSignInSubmit(_passcode);
         }
         else {
             navigate("/error/4", { replace: true });
         }
     }
 
-    const onSignInSubmit = () => {
+    const onSignInSubmit = (_passcode) => {
         /*    configureCaptcha();
     
             const phoneNumber = "+91" + phone;
@@ -58,7 +55,7 @@ export default function Candidates({ vid, phone, parties }) {
                     console.log("Code from Prompt: ", code);
                     if (code != null) {
                         window.confirmationResult.confirm(code).then((res) => {*/
-        submitVote().then((_) => {
+        submitVote(_passcode).then((_) => {
             console.log("Complete Success");
             setSuccessFlag(true);
         }).catch((error) => {
@@ -84,15 +81,16 @@ export default function Candidates({ vid, phone, parties }) {
         await window.ethereum.request({ method: 'eth_requestAccounts' });
     }
 
-    async function submitVote() {
+    async function submitVote(_passcode) {
         if (typeof window.ethereum !== 'undefined') {
             await requestAccount();
             const provider = new ethers.providers.Web3Provider(window.ethereum);
-            console.log({ provider });
             const signer = provider.getSigner();
-            console.log('signer: ', signer);
             const contract = new ethers.Contract(contract_address, Voting.abi, signer);
-            const transaction = await contract.vote(vote, vid, passcode);
+
+            console.log("sending to contract:\nvote: ", vote, ", vid: ", vid, ", passcode: ", _passcode);
+
+            const transaction = await contract.vote(vote, vid, _passcode);
             await transaction.wait();
         }
     }

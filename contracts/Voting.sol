@@ -1,14 +1,13 @@
 pragma solidity ^0.8.4;
 
+import "hardhat/console.sol";
+
 contract Voting {
     struct Voter {
-        string voterId;
         bool hasVoted;
-    }
-
-    struct Record {
-        string passcode;
         uint256 party;
+        string voterId;
+        string passcode;
     }
 
     struct Party {
@@ -18,9 +17,7 @@ contract Voting {
 
     address public electionCommisioner;
 
-    mapping(address => Voter) private voters;
-
-    mapping(address => Record) private records;
+    mapping(address => Voter) voters;
 
     Party[] public parties;
 
@@ -35,6 +32,9 @@ contract Voting {
     }
 
     function canVote(string memory voterId) public view returns (bool) {
+        console.log("---canVote function---");
+        console.log("voterId: ", voterId);
+
         if (voters[msg.sender].hasVoted == true) {
             return false;
         }
@@ -54,21 +54,36 @@ contract Voting {
         string memory voterId,
         string memory passcode
     ) public {
-        Voter storage sender = voters[msg.sender];
+        console.log("---vote function---");
+        console.log("msg.sender: ", msg.sender);
+        console.log("party: ", party);
+        console.log("voterId: ", voterId);
+        console.log("passcode: ", passcode);
 
         require(canVote(voterId), "Already voted.");
 
-        sender.hasVoted = true;
-        sender.voterId = voterId;
+        voters[msg.sender] = Voter(true, party, voterId, passcode);
 
         votedPeople.push(voterId);
 
-        Record storage senderRecord = records[msg.sender];
-
-        senderRecord.party = party;
-        senderRecord.passcode = passcode;
-
         parties[party].voteCount += 1;
+    }
+
+    function voterSummary()
+        public
+        view
+        returns (
+            Voter memory voter_,
+            Party[] memory parties_,
+            string[] memory votedPeople_
+        )
+    {
+        console.log("---voterSummary function---");
+        console.log(
+            "voters[msg.sender].hasVoted: ",
+            voters[msg.sender].hasVoted
+        );
+        return (voters[msg.sender], parties, votedPeople);
     }
 
     function votedTo(string memory passcode_)
@@ -76,31 +91,22 @@ contract Voting {
         view
         returns (string memory votedParty_)
     {
+        console.log("---votedTo function---");
+        console.log("passcode_: ", passcode_);
+
         require(voters[msg.sender].hasVoted, "you have not voted yet");
         require(
-            keccak256(abi.encodePacked(records[msg.sender].passcode)) ==
+            keccak256(abi.encodePacked(voters[msg.sender].passcode)) ==
                 keccak256(abi.encodePacked(passcode_)),
             "Invalid Passcode"
         );
 
-        votedParty_ = parties[records[msg.sender].party].name;
-    }
-
-    function winningParty() public view returns (uint256 winningParty_) {
-        uint256 winningVoteCount = 0;
-        for (uint256 p = 0; p < parties.length; p++) {
-            if (parties[p].voteCount > winningVoteCount) {
-                winningVoteCount = parties[p].voteCount;
-                winningParty_ = p;
-            }
-        }
-    }
-
-    function winnerName() public view returns (string memory winnerName_) {
-        winnerName_ = parties[winningParty()].name;
+        votedParty_ = parties[voters[msg.sender].party].name;
     }
 
     function results() public view returns (Party[] memory parties_) {
+        console.log("---results function---");
+
         parties_ = parties;
     }
 }

@@ -9,7 +9,7 @@ export default function Header() {
     return (
         <div className='header'>
             <div className='header-head'>
-                <h3>Blockchain Based E-Voting System</h3>
+                <h3 onClick={() => navigate("/")}>Blockchain Based E-Voting System</h3>
                 <button onClick={() => navigate("/myvote")}>my vote</button>
             </div>
         </div>

@@ -5,10 +5,10 @@ import { ethers } from 'ethers';
 import Voting from '../../artifacts/contracts/Voting.sol/Voting.json';
 import { useEffect, useState } from 'react';
 
-function Results({parties}) {
+function Results({ parties }) {
 
     const [res, setRes] = useState([]);
-    
+
     useEffect(() => {
         getResults();
     }, []);
@@ -43,7 +43,7 @@ function Results({parties}) {
                                 <tr key={i}>
                                     <td>{party.name}</td>
                                     <td><img src={party.symbol} alt="" /></td>
-                                    <td>{parseInt(res[i].voteCount, 16)}</td>
+                                    <td>{res.length === 0 ? "-" : parseInt(res[i].voteCount, 16)}</td>
                                 </tr>
                             )
                         })

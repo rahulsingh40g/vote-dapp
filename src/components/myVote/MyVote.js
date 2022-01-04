@@ -18,10 +18,24 @@ function MyVote() {
             contract.votedTo(passcode).then((res) => {
                 setParty(res);
             }).catch((error) => {
-                console.log("MyVote error: ", error);
+                console.log("MyVote error: ", error.data.message.split('\'')[1]);
+                setParty(error.data.message.split('\'')[1]);
             });
         }
+    }
 
+    async function getVoterSummary(e) {
+        e.preventDefault();
+        if (typeof window.ethereum !== 'undefined') {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const contract = new ethers.Contract(contract_address, Voting.abi, provider);
+
+            contract.voterSummary().then((res) => {
+                console.log("Voter Summary: ", res);
+            }).catch((error) => {
+                console.log("VoterSummary error: ", error);
+            });
+        }
     }
 
     return (
@@ -29,7 +43,7 @@ function MyVote() {
             <h3>Check whom you voted</h3>
             <form className='myVotes-form'>
                 <input type="password" placeholder='Passcode' onChange={(e) => setPasscode(e.target.value)} />
-                <button onClick={getVotedParty} >Check</button>
+                <button onClick={getVoterSummary} >Check</button>
             </form>
             <h3>{party === "" ? "" : party}</h3>
         </div>
