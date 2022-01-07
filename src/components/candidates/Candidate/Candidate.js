@@ -1,10 +1,11 @@
 import React from 'react';
 import './Candidate.css';
 import { useState } from 'react';
+import BEEP_URL from '../../../constants/audio-data';
 
 export default function Candidate({ party, vote, setVote }) {
 
-    const [audio] = useState(new Audio("https://www.soundjay.com/buttons/sounds/beep-02.mp3"));
+    const [audio] = useState(new Audio(BEEP_URL));
 
     const handleClick = () => {
         setVote(party.id);

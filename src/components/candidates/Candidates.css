@@ -1,36 +1,36 @@
 .candidate {
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
-    align-items: center;
-    font-weight: bold;
-    font-size: 18px;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  justify-content: space-around;
 }
 
 .candidate-item {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    margin-right: 20px;
-    cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-right: 20px;
+  cursor: pointer;
 }
 
 .candidate-item:hover {
-    color: teal;
+  color: teal;
 }
 
 .candidate-item > img {
-    height: 40px;
-    width: 40px;
+  height: 40px;
+  width: 40px;
 }
 
 .candidate > button {
-    background-color: white;
-    border: 0.5px solid blue;
-    border-radius: 10px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+  background-color: white;
+  border: 0.5px solid blue;
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }

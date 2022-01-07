@@ -21,6 +21,10 @@ function App() {
       ));
   }, []);
 
+  async function requestAccount() {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+  }
+
   return (
     <Router>
       <div className="app">
@@ -28,8 +32,8 @@ function App() {
         <Routes>
           <Route path="/error/:id" element={<Error />} />
           <Route path="/results" element={<Results parties={parties} />} />
-          <Route path="/myvote" element={<MyVote />} />
-          <Route path="/" element={<VoterId parties={parties} />} />
+          <Route path="/myvote" element={<MyVote requestAccount={requestAccount} />} />
+          <Route path="/" element={<VoterId parties={parties} requestAccount={requestAccount} />} />
           <Route path="*" element={<div>Error! Page Not Found!</div>} />
         </Routes>
         <Footer />

@@ -105,8 +105,6 @@ contract Voting {
     }
 
     function results() public view returns (Party[] memory parties_) {
-        console.log("---results function---");
-
         parties_ = parties;
     }
 }

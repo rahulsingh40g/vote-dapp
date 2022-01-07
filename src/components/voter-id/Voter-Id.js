@@ -8,7 +8,7 @@ import contract_address from '../../constants/contract-data.js';
 import { ethers } from 'ethers';
 import Voting from '../../artifacts/contracts/Voting.sol/Voting.json';
 
-export default function VoterId({ parties }) {
+export default function VoterId({ parties, requestAccount }) {
 
     const navigate = useNavigate();
     const [vid, setVid] = useState("");
@@ -41,17 +41,14 @@ export default function VoterId({ parties }) {
     async function canVote(e) {
         e.preventDefault();
         if (typeof window.ethereum !== 'undefined') {
+            await requestAccount();
             const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const contract = new ethers.Contract(contract_address, Voting.abi, provider)
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(contract_address, Voting.abi, signer);
             try {
                 const data = await contract.canVote(vid);
-                console.log("canVote Data: ", data);
-                if (data) {
-                    validateVid();
-                }
-                else {
-                    navigate("/error/5");
-                }
+                if (data) validateVid();
+                else navigate("/error/5");
             } catch (err) {
                 console.log("canVote Error: ", err)
             }
@@ -69,7 +66,12 @@ export default function VoterId({ parties }) {
                             <button onClick={canVote} >Proceed</button>
                         </form>
                     </div>
-                    : <Candidates vid={vid} phone={phone} parties={parties} />
+                    : <Candidates
+                        vid={vid}
+                        phone={phone}
+                        parties={parties}
+                        requestAccount={requestAccount}
+                    />
             }
         </>
     );

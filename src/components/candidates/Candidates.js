@@ -5,11 +5,11 @@ import Success from '../success/Success.js';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { firebase } from '../../firebase';
-import contract_address from '../../constants/contract-data.js';
+import CONTRACT_ADDRESS from '../../constants/contract-data.js';
 import { ethers } from 'ethers';
 import Voting from '../../artifacts/contracts/Voting.sol/Voting.json';
 
-export default function Candidates({ vid, phone, parties }) {
+export default function Candidates({ vid, phone, parties, requestAccount }) {
 
     const navigate = useNavigate();
 
@@ -20,9 +20,8 @@ export default function Candidates({ vid, phone, parties }) {
     const configureCaptcha = () => {
         window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
             'size': 'invisible',
-            'callback': (response) => {
+            'callback': (_) => {
                 onSignInSubmit();
-                console.log("Recaptcha Verified");
             },
             defaultCountry: "IN"
         });
@@ -40,55 +39,46 @@ export default function Candidates({ vid, phone, parties }) {
     }
 
     const onSignInSubmit = (_passcode) => {
-        /*    configureCaptcha();
-    
-            const phoneNumber = "+91" + phone;
-    
-            const appVerifier = window.recaptchaVerifier;
-    
-            firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-                .then((confirmationResult) => {
-                    window.confirmationResult = confirmationResult;
-                    console.log("OPT SENT");
-    
-                    let code = prompt("Enter OTP sent to your registered mobile number ***** **" + phone.slice(phone.length - 3));
-                    console.log("Code from Prompt: ", code);
-                    if (code != null) {
-                        window.confirmationResult.confirm(code).then((res) => {*/
-        submitVote(_passcode).then((_) => {
-            console.log("Complete Success");
-            setSuccessFlag(true);
-        }).catch((error) => {
-            console.log("Error Submitting Vote: ", error);
-            navigate("/error/6", { replace: true });
-        });
-        /*  })
-              .catch((error) => {
-                  console.log("Error Confirming OTP");
-                  navigate("/error/2", { replace: true });
-              });
-      }
-      else {
-          navigate("/error/3", { replace: true });
-      }
+        configureCaptcha();
 
-  }).catch((error) => {
-      console.log("SMS not SENT");
-  });*/
-    }
+        const phoneNumber = "+91" + phone;
 
-    async function requestAccount() {
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const appVerifier = window.recaptchaVerifier;
+
+        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+            .then((confirmationResult) => {
+                window.confirmationResult = confirmationResult;
+
+                let code = prompt("Enter OTP sent to your registered mobile number ***** **" + phone.slice(phone.length - 3));
+
+                if (code != null) {
+                    window.confirmationResult.confirm(code).then((res) => {
+                        submitVote(_passcode).then((_) => {
+                            setSuccessFlag(true);
+                        }).catch((e) => {
+                            navigate("/error/6", { replace: true });
+                        });
+                    })
+                        .catch((e) => {
+                            navigate("/error/2", { replace: true });
+                        });
+                }
+                else {
+                    navigate("/error/3", { replace: true });
+                }
+
+            });
     }
 
     async function submitVote(_passcode) {
         if (typeof window.ethereum !== 'undefined') {
+
             await requestAccount();
+
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
-            const contract = new ethers.Contract(contract_address, Voting.abi, signer);
 
-            console.log("sending to contract:\nvote: ", vote, ", vid: ", vid, ", passcode: ", _passcode);
+            const contract = new ethers.Contract(CONTRACT_ADDRESS, Voting.abi, signer);
 
             const transaction = await contract.vote(vote, vid, _passcode);
             await transaction.wait();
@@ -104,7 +94,13 @@ export default function Candidates({ vid, phone, parties }) {
                         <h4>Kindly Select the Candidate you want to Vote for</h4>
                         <hr />
                         {
-                            parties.map((party, i) => <Candidate key={i} party={party} vote={vote} setVote={setVote} />)
+                            parties.map((party, i) =>
+                                <Candidate
+                                    key={i}
+                                    party={party}
+                                    vote={vote}
+                                    setVote={setVote}
+                                />)
                         }
                         <div id="sign-in-button"></div>
                         <button disabled={vote == null} onClick={acceptPasscode}>

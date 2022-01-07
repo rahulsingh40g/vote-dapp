@@ -4,7 +4,7 @@ import contract_address from '../../constants/contract-data.js';
 import { ethers } from 'ethers';
 import Voting from '../../artifacts/contracts/Voting.sol/Voting.json';
 
-function MyVote() {
+function MyVote({ requestAccount }) {
 
     const [passcode, setPasscode] = useState("");
     const [party, setParty] = useState("");
@@ -12,28 +12,15 @@ function MyVote() {
     async function getVotedParty(e) {
         e.preventDefault();
         if (typeof window.ethereum !== 'undefined') {
+            await requestAccount();
             const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const contract = new ethers.Contract(contract_address, Voting.abi, provider);
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(contract_address, Voting.abi, signer);
 
             contract.votedTo(passcode).then((res) => {
                 setParty(res);
             }).catch((error) => {
-                console.log("MyVote error: ", error.data.message.split('\'')[1]);
                 setParty(error.data.message.split('\'')[1]);
-            });
-        }
-    }
-
-    async function getVoterSummary(e) {
-        e.preventDefault();
-        if (typeof window.ethereum !== 'undefined') {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const contract = new ethers.Contract(contract_address, Voting.abi, provider);
-
-            contract.voterSummary().then((res) => {
-                console.log("Voter Summary: ", res);
-            }).catch((error) => {
-                console.log("VoterSummary error: ", error);
             });
         }
     }
@@ -42,8 +29,12 @@ function MyVote() {
         <div className='myVotes'>
             <h3>Check whom you voted</h3>
             <form className='myVotes-form'>
-                <input type="password" placeholder='Passcode' onChange={(e) => setPasscode(e.target.value)} />
-                <button onClick={getVoterSummary} >Check</button>
+                <input
+                    type="password"
+                    placeholder='Passcode'
+                    onChange={(e) => setPasscode(e.target.value)}
+                />
+                <button onClick={getVotedParty} >Check</button>
             </form>
             <h3>{party === "" ? "" : party}</h3>
         </div>

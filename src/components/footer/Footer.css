@@ -1,10 +1,10 @@
 .footer {
-    position: sticky;
-    bottom: 0;
-    z-index: 100;
-    text-align: center;
-    background-color: teal;
-    padding: 12px;
-    color: white;
-    width: 100%;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  text-align: center;
+  background-color: teal;
+  padding: 12px;
+  color: white;
+  width: 100%;
 }
