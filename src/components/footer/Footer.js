@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export default function Footer() {
     return (
         <div className='footer'>
-            <Link to="/results" style={{ textDecoration: 'none', color: 'white' }}>
+            <Link to="/results" style={{ textDecoration: 'none', color: 'teal' }}>
              Results
             </Link>
         </div>

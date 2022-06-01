@@ -13,3 +13,9 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+
+Steps to run this app:
+1. npx hardhat node
+2. npx hardhat run scripts/deploy.js --network localhost
+3. copy the contract address from above to constants/contract-data.js
+4. npm start

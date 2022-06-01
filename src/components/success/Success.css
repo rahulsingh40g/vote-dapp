@@ -1,4 +1,13 @@
 .success {
   color: green;
   font-style: bold;
+  font-size: 24pt;
+  justify-content: center;
+  align-items: center;
+}
+
+.successImage > img {
+  width: 300px;
+  height: 300px;
+  margin-left: 180px;
 }

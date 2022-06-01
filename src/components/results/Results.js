@@ -28,7 +28,7 @@ function Results({ parties }) {
 
     return (
         <div className='results'>
-            <table>
+            <table className='resultsTable'>
                 <thead>
                     <tr>
                         <th>Name</th>

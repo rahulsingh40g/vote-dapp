@@ -57,22 +57,29 @@ export default function VoterId({ parties, requestAccount }) {
 
     return (
         <>
-            {
-                phone === ""
-                    ? <div className='voterId'>
-                        <form className='voterId-form'>
-                            <h4>Enter Your Voter ID</h4>
-                            <input type="text" onChange={e => setVid(e.target.value)} />
-                            <button onClick={canVote} >Proceed</button>
-                        </form>
-                    </div>
-                    : <Candidates
-                        vid={vid}
-                        phone={phone}
-                        parties={parties}
-                        requestAccount={requestAccount}
-                    />
-            }
+            <div className="mainContent">
+            <div>
+                {
+                    phone === ""
+                        ? <div className='voterId'>
+                            <form className='voterId-form'>
+                                <h4>Enter Your Voter ID</h4>
+                                <input type="text" onChange={e => setVid(e.target.value)} />
+                                <button onClick={canVote} >Proceed</button>
+                            </form>
+                        </div>
+                        : <Candidates
+                            vid={vid}
+                            phone={phone}
+                            parties={parties}
+                            requestAccount={requestAccount}
+                        />
+                }
+            </div>
+            <div className='voteImage'>
+                <img src="votelaptop.jpg"/>
+            </div>
+        </div>
         </>
     );
 }

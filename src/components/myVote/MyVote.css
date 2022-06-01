@@ -1,3 +1,11 @@
+.myVoteContent {
+  width: 1000px;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+}
+
 .myVotes {
   display: flex;
   flex-direction: column;
@@ -8,6 +16,7 @@
 .myVotes > h3 {
   font-weight: bold;
   color: teal;
+  font-size: 20pt;
   padding: 10px;
 }
 
@@ -20,22 +29,40 @@
   align-items: center;
 }
 
-.myVotes-form > input,
+.myVotes-form > input {
+  padding: 5px;
+  border: 0.5px solid teal;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 17px;
+  width: 100%;
+}
+
 .myVotes-form > button {
   padding: 5px;
   border: 0.5px solid teal;
   border-radius: 5px;
   margin: 5px;
+  padding: 17px;
+  margin-top: 20px;
+  border-radius: 30px;
   width: 100%;
 }
 
 .myVotes-form > button {
-  color: white;
+  color: teal;
   font-weight: bold;
-  background-color: teal;
+  background-color: white;
   cursor: pointer;
 }
 
 .myVotes-form > button:hover {
-  color: yellow;
+  background-color: teal;
+  color: white;
+  transition: 1s;
+}
+
+.myVoteImage > img {
+  width: 500px;
+  height: 500px;
 }

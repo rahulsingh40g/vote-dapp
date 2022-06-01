@@ -3,8 +3,9 @@
   bottom: 0;
   z-index: 100;
   text-align: center;
-  background-color: teal;
+  background-color: rgba(0, 0, 0, 0.2);
   padding: 12px;
-  color: white;
+  color: teal;
+  font-size: 16pt;
   width: 100%;
 }

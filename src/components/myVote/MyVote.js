@@ -26,17 +26,22 @@ function MyVote({ requestAccount }) {
     }
 
     return (
-        <div className='myVotes'>
-            <h3>Check whom you voted</h3>
-            <form className='myVotes-form'>
-                <input
-                    type="password"
-                    placeholder='Passcode'
-                    onChange={(e) => setPasscode(e.target.value)}
-                />
-                <button onClick={getVotedParty} >Check</button>
-            </form>
-            <h3>{party === "" ? "" : party}</h3>
+        <div className="myVoteContent">
+            <div className='myVotes'>
+                <h3>Check whom you voted</h3>
+                <form className='myVotes-form'>
+                    <input
+                        type="password"
+                        placeholder='Passcode'
+                        onChange={(e) => setPasscode(e.target.value)}
+                    />
+                    <button onClick={getVotedParty} >Check</button>
+                </form>
+                <h3>{party === "" ? "" : party}</h3>
+            </div>
+            <div className='myVoteImage'>
+                <img src="namaste.png"/>
+            </div>
         </div>
     );
 }

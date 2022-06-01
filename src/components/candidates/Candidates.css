@@ -5,6 +5,8 @@
   align-items: center;
   font-weight: bold;
   font-size: 18px;
+  width: 700px;
+  font-family: Roboto;
   justify-content: space-around;
 }
 
@@ -33,4 +35,16 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+.candidates > h4 {
+  font-size: 14pt;
+  margin-bottom: 12px;
+}
+
+.candidates > button {
+  color: teal;
+  font-weight: bold;
+  background-color: transparent;
+  border-radius: 30px;
 }

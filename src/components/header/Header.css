@@ -1,11 +1,12 @@
 .header {
   position: sticky;
-  top: 0;
+  top: 0; 
   z-index: 100;
   text-align: center;
-  background-color: teal;
+  background-color: rgba(0, 0, 0, 0.2);
   padding: 12px;
-  color: white;
+  font-size: 20pt;
+  color: teal;
   width: 100%;
 }
 
@@ -24,10 +25,10 @@
   color: white;
   background-color: transparent;
   border: none;
-  text-decoration: underline;
   cursor: pointer;
 }
 
 .header-head > button:hover {
-  color: yellow;
+  color: teal;
+  transition: 1s;
 }

@@ -7,10 +7,12 @@
 
 table {
   border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: -2px -2px 25px 19px rgba(0,128,128,0.30);
 }
 
 th {
-  background-color: yellow;
+  background-color: rgba(0, 0, 0, 0.1);
   font-size: 18px;
   font-weight: bold;
   border-bottom: 1px solid black;
@@ -23,6 +25,16 @@ td {
     font-size: 16px;
     font-weight: bold;
     color: teal;
+}
+
+td:hover {
+  color: white;
+}
+
+tr:hover {
+  background-color: teal;
+  transition: 1s;
+  color: white;
 }
 
 img {
