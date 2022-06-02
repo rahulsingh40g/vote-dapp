@@ -1,3 +1,31 @@
+# Blockchain based E-Voting System
+#### Major Project for NITJ CS 2018 batch
+#### Contributors
+Abhishek Singh - 18103007
+
+Akanksha Ramrane - 18103014 
+
+Aman Kumar Rahi – 18103015
+
+Gaurav Bhardwaj - 18103034
+
+Rahul Singh - 18103075
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Basic Sample Hardhat Project
 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
